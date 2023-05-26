@@ -6,8 +6,8 @@
  * so that our json objects can also be recognized by the scanner.
  */
 export const _t = (id: string, ...rest: any[]): [string, ...any[]] => {
-  if (!id) {
-    id = '_NOT_TRANSLATED_';
-  }
-  return [id, ...rest];
+    if (!id) {
+        id = '_NOT_TRANSLATED_';
+    }
+    return [id, ...rest];
 };

@@ -24,8 +24,6 @@ import { configureAppStore } from 'store/configureStore';
 
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
-import reportWebVitals from 'reportWebVitals';
-
 // Initialize languages
 import './locales/i18n';
 
@@ -35,34 +33,29 @@ const openSansObserver = new FontFaceObserver('Inter', {});
 
 // When Inter is loaded, add a font-family using Inter to the body
 openSansObserver.load().then(() => {
-  document.body.classList.add('fontLoaded');
+    document.body.classList.add('fontLoaded');
 });
 
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+    document.getElementById('root') as HTMLElement,
 );
 
 root.render(
-  <Provider store={store}>
-    <ThemeProvider>
-      <HelmetProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </HelmetProvider>
-    </ThemeProvider>
-  </Provider>,
+    <Provider store={store}>
+        <ThemeProvider>
+            <HelmetProvider>
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            </HelmetProvider>
+        </ThemeProvider>
+    </Provider>,
 );
 
 // Hot reloadable translation json files
 if (module.hot) {
-  module.hot.accept(['./locales/i18n'], () => {
-    // No need to render the App again because i18next works with the hooks
-  });
+    module.hot.accept(['./locales/i18n'], () => {
+        // No need to render the App again because i18next works with the hooks
+    });
 }
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
