@@ -22,45 +22,22 @@ class NutanixVmmClient {
 
     powerOffVm(vm: INutanixVm) {
         vm.spec.resources.power_state = 'OFF';
-        return this._axios.put(
-            `vms/${vm.metadata.uuid}`,
-            {
-                metadata: vm.metadata,
-                spec: vm.spec,
-            },
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            },
-        );
+        return this._axios.put(`vms/${vm.metadata.uuid}`, {
+            metadata: vm.metadata,
+            spec: vm.spec,
+        });
     }
 
     cloneVm(uuid: string) {
-        return this._axios.post(`vms/${uuid}/clone`, {} as object, {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-        });
+        return this._axios.post(`vms/${uuid}/clone`, {} as object);
     }
 
     powerOnVm(vm: INutanixVm) {
         vm.spec.resources.power_state = 'ON';
-        return this._axios.put(
-            `vms/${vm.metadata.uuid}`,
-            {
-                metadata: vm.metadata,
-                spec: vm.spec,
-            },
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            },
-        );
+        return this._axios.put(`vms/${vm.metadata.uuid}`, {
+            metadata: vm.metadata,
+            spec: vm.spec,
+        });
     }
 
     deleteVm(uuid: string) {

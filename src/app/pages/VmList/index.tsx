@@ -25,16 +25,9 @@ export class VmList extends React.Component<IVmListProps, IVmListState> {
 
     refreshVmList() {
         NutanixApiClient.vms.listVms().then(data => {
-            console.warn(data.data.entities);
-            // this.setState({
-            //     vms: data.data.entities.filter(
-            //         x => x.metadata.owner_reference.name !== 'admin',
-            //     ),
-            // });
             this.setState({ vms: data.data.entities });
         });
         NutanixApiClient.vmRecoveryPoints.listVmRecoveryPoints().then(data => {
-            console.warn(data.data.entities);
             this.setState({
                 vmRecoveryPoints: data.data.entities,
             });
