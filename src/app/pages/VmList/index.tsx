@@ -25,6 +25,7 @@ export class VmList extends React.Component<IVmListProps, IVmListState> {
 
     refreshVmList() {
         NutanixApiClient.vms.listVms().then(data => {
+            if (data === undefined) return;
             this.setState({ vms: data.data.entities });
         });
         NutanixApiClient.vmRecoveryPoints.listVmRecoveryPoints().then(data => {
@@ -77,13 +78,6 @@ export class VmList extends React.Component<IVmListProps, IVmListState> {
                         ))}
                     </tbody>
                 </Table>
-                {/* <Row xs={1} md={3} className="g-4">
-                    {this.state.vmList.map(x => (
-                        <Col key={x.metadata.uuid}>
-                            <VmInstance key={x.metadata.uuid} vm={x} />
-                        </Col>
-                    ))}
-                </Row> */}
             </div>
         );
     }

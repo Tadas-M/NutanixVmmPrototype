@@ -9,15 +9,31 @@ class NutanixVmmClient {
     constructor(private _axios: AxiosInstance) {}
 
     async listVms() {
-        const result = await this._axios.post('vms/list', {
-            kind: 'vm',
-            sort_attribute: '',
-            filter: '',
-            length: undefined,
-            sort_order: 'ASCENDING',
-            offset: 0,
-        });
+        const result = await this._axios
+            .post('vms/list', {
+                kind: 'vm',
+                sort_attribute: '',
+                filter: '',
+                length: undefined,
+                sort_order: 'ASCENDING',
+                offset: 0,
+            })
+            .catch(e => console.log(e));
+        if (result === undefined) return;
         return result as INutanixApiListVms;
+    }
+
+    async createVm(vm: INutanixVm) {
+        const result = await this._axios.post('vms', vm);
+        return result as INutanixApiVm;
+    }
+
+    cloneVm(uuid: string) {
+        return this._axios.post(`vms/${uuid}/clone`, {} as object);
+    }
+
+    deleteVm(uuid: string) {
+        return this._axios.delete(`vms/${uuid}`);
     }
 
     powerOffVm(vm: INutanixVm) {
@@ -28,25 +44,12 @@ class NutanixVmmClient {
         });
     }
 
-    cloneVm(uuid: string) {
-        return this._axios.post(`vms/${uuid}/clone`, {} as object);
-    }
-
     powerOnVm(vm: INutanixVm) {
         vm.spec.resources.power_state = 'ON';
         return this._axios.put(`vms/${vm.metadata.uuid}`, {
             metadata: vm.metadata,
             spec: vm.spec,
         });
-    }
-
-    deleteVm(uuid: string) {
-        return this._axios.delete(`vms/${uuid}`);
-    }
-
-    async createVm(vm: INutanixVm) {
-        const result = await this._axios.post('vms', vm);
-        return result as INutanixApiVm;
     }
 
     snapshotVm(uuid: string) {
@@ -62,6 +65,7 @@ class NutanixVmmClient {
     exportVm(uuid: string, ovaName: string) {
         return this._axios.post(`vms/${uuid}/export`, {
             name: ovaName,
+            disk_file_format: '.ovf',
         });
     }
 }

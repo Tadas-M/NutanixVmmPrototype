@@ -70,7 +70,7 @@ export class VmActionsDropdown extends React.Component<IVmActionsDropdownProps> 
                     <Dropdown.Item
                         onClick={() =>
                             NutanixApiClient.vms
-                                .exportVm(this.props.vm.metadata.uuid, 'asd')
+                                .exportVm(this.props.vm.metadata.uuid, 'test')
                                 .then(() => this.props.refreshVmList())
                         }
                     >

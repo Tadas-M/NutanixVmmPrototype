@@ -20,7 +20,7 @@ class NutanixApiClient {
     static initClient() {
         const username = localStorage.getItem('Username');
         const password = localStorage.getItem('Password');
-        const nutanixApiUrl = localStorage.getItem('NutanixUrl');
+        const nutanixApiUrl = localStorage.getItem('NutanixApiUrl');
         if (!username || !password || !nutanixApiUrl) return;
         this.setCredentials(username, password, nutanixApiUrl);
     }
